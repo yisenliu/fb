@@ -1,19 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <title>FB API</title>
+  <meta property="og:url" content="https://yisenliu.github.io/fb/index.htm" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="FB API串接" />
+  <meta property="og:description" content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa cumque quidem repellat unde odio fugiat. Dicta eaque nam, consequuntur explicabo." />
+  <meta property="og:image" content="https://images.pexels.com/photos/21809/pexels-photo.jpg?w=1260&h=750&auto=compress&cs=tinysrgb" />
+  <title>FB API串接</title>
 </head>
+
 <body>
   <div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = 'https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.12&appId=938044843003709&autoLogAppEvents=1';
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
-<div class="feedback">FB feedback message.</div>
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId: '938044843003709',
+        xfbml: true,
+        version: 'v2.12'
+      });
+      FB.AppEvents.logPageView();
+    };
+
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) { return; }
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
+  <!-- FB like button code -->
+  <div class="fb-like" data-share="true" data-width="450" data-show-faces="true">
+  </div>
+  <!-- FB share button code -->
+  <div class="fb-share-button" data-href="https://yisenliu.github.io/fb/index.htm" data-layout="button_count">
+  </div>
+  <!-- FB login code -->
+  <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" onlogin="onLogin()"></div>
+  <!-- feedback -->
+  <div class="feedback">FB feedback message.</div>
+
+  <script>
+    const onLogin =>(){
+      const feedback = document.querySelect('.feedback');
+      feedback.innerHTML = 'FB logined.';
+    }
+  </script>
 </body>
+
 </html>
