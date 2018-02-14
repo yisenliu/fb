@@ -16,6 +16,13 @@
 <body>
   <div id="fb-root"> </div>
   <script>
+     function onLogin() {
+        var btnLoginByFB = document.querySelector('.btnLoginByFB'),
+          feedback = document.querySelector('.feedback');
+
+        btnLoginByFB.removeChild(this);
+        feedback.innerText = 'Facebook 登入成功.';
+      };
     // javascript document
     // This is called with the results from from FB.getLoginStatus().
     function statusChangeCallback(response) {
@@ -29,7 +36,7 @@
         // Logged into your app and Facebook.
         console.log(response.authResponse.accessToken);
 
-        document.querySelector('.feedback').innerText = 'Facebook 登入成功.';
+        onLogin();
 
       } else if (response.status === 'not_authorized') {
         // The person is logged into Facebook, but not your app.
@@ -92,13 +99,8 @@
   <script>
     var counter = document.querySelector('.counter'),
       sec = 0,
-      secInt,
-      onLogin = function() {
-        var fbLoginButton = document.querySelector('.fb-login-button'),
-          feedback = document.querySelector('.feedback');
-        fbLoginButton.innerHTML = '';
-        feedback.innerText = 'Facebook 登入成功.';
-      };
+      secInt;
+      
 
     secInt = setInterval(function() {
       // console.log(sec);
