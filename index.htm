@@ -86,21 +86,20 @@
     <!-- FB API反饋結果 -->
   </div>
   <script>
-    var onLogin = function() {
-      var fbLoginButton = document.querySelector('.fb-login-button'),
-        feedback = document.querySelector('.feedback'),
-        counter = document.querySelector('.counter'),
-        sec = 0
-        secInt;
+    var counter = document.querySelector('.counter'),
+      sec = 0,
+      secInt,
+      onLogin = function() {
+        var fbLoginButton = document.querySelector('.fb-login-button'),
+          feedback = document.querySelector('.feedback');
+        fbLoginButton.innerHTML = '';
+        feedback.innerText = 'Facebook 登入成功.';
+      };
 
-      fbLoginButton.innerHTML = '';
-      feedback.innerText = 'Facebook 登入成功.';
-
-      secInt = setInterval(function(){
-        console.log(sec);
-        counter.innerText = sec++;
-      },1000);
-    }
+    secInt = setInterval(function() {
+      // console.log(sec);
+      counter.innerText = sec++;
+    }, 1000);
   </script>
 </body>
 
