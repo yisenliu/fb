@@ -1,3 +1,7 @@
+h2 {
+  display: block;
+  clear: both;
+}
 .feedback {
   padding: 10px;
   outline: 1px solid #000;
