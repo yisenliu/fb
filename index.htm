@@ -28,7 +28,9 @@
       if (response.status === 'connected') {
         // Logged into your app and Facebook.
         console.log(response.authResponse.accessToken);
-        onLogin();
+
+        document.querySelector('.feedback').innerText = 'Facebook 登入成功.';
+
       } else if (response.status === 'not_authorized') {
         // The person is logged into Facebook, but not your app.
         console.log('The person is logged into Facebook, but not your app');
