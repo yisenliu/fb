@@ -3,6 +3,8 @@ h2 {
   clear: both;
 }
 .feedback {
-  padding: 10px;
+  padding: 20px;
+  font-size: 20px;
+  color: red;
   outline: 1px solid #000;
 }
