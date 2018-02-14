@@ -8,3 +8,14 @@ h2 {
   color: red;
   outline: 1px solid #000;
 }
+.btnLoginByFB {
+  background-color: #305891;
+  padding: 10px;
+  border-radius: 4px;
+  line-height: normal;
+  display: inline-block;
+  appearance: none;
+  color: #fff;
+  text-decoration: none;
+  margin-bottom: 40px;
+}
