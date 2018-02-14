@@ -16,27 +16,35 @@
 <body>
   <div id="fb-root"> </div>
   <script>
-     function onLogin() {
-        var btnLoginByFB = document.querySelector('.btnLoginByFB'),
-          feedback = document.querySelector('.feedback');
+    function onLogin(response) {
+      var btnLoginByFB = document.querySelector('.btnLoginByFB'),
+        feedback = document.querySelector('.feedback');
 
-        btnLoginByFB.remove();
-        feedback.innerText = 'Facebook 登入成功.';
-      };
+      btnLoginByFB.remove();
+      feedback.innerText = 'Facebook 登入成功.';
+      FB.api(
+        '/me',
+        'GET', { "fields": "id,name,email" },
+        function(response) {
+          // Insert your code here
+          console.log(response);
+        }
+      );
+    };
     // javascript document
     // This is called with the results from from FB.getLoginStatus().
     function statusChangeCallback(response) {
       console.log('statusChangeCallback');
-      console.log(response);
+      // console.log(response);
       // The response object is returned with a status field that lets the
       // app know the current login status of the persopren.
       // Full docs on the response object can be found in the documentation
       // for FB.getLoginStatus().
       if (response.status === 'connected') {
         // Logged into your app and Facebook.
-        console.log(response.authResponse.accessToken);
+        // console.log(response.authResponse.accessToken);
 
-        onLogin();
+        onLogin(response);
 
       } else if (response.status === 'not_authorized') {
         // The person is logged into Facebook, but not your app.
@@ -98,7 +106,7 @@
   <script>
     var counter = document.querySelector('.counter'),
       sec = 0,
-      secInt;      
+      secInt;
 
     secInt = setInterval(function() {
       counter.innerText = sec++;
