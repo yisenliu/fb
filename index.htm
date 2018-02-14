@@ -27,7 +27,7 @@
       // for FB.getLoginStatus().
       if (response.status === 'connected') {
         // Logged into your app and Facebook.
-        login(response.authResponse.accessToken);
+        console.log(response.authResponse.accessToken);
         onLogin();
       } else if (response.status === 'not_authorized') {
         // The person is logged into Facebook, but not your app.
