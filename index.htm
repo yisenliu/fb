@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui">
+  <meta property="og:url" content="https://yisenliu.github.io/fb/index.htm" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="FB API串接" />
+  <meta property="og:description" content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa cumque quidem repellat unde odio fugiat. Dicta eaque nam, consequuntur explicabo." />
+  <meta property="og:image" content="https://images.pexels.com/photos/21809/pexels-photo.jpg?w=1260&h=750&auto=compress&cs=tinysrgb" />
+  <title>FB API串接</title>
+  <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+  <div id="fb-root"> </div>
+  <script>
+    // javascript document
+    // This is called with the results from from FB.getLoginStatus().
+    function statusChangeCallback(response) {
+      console.log('statusChangeCallback');
+      // console.log(response);
+      // The response object is returned with a status field that lets the
+      // app know the current login status of the persopren.
+      // Full docs on the response object can be found in the documentation
+      // for FB.getLoginStatus().
+      if (response.status === 'connected') {
+        // Logged into your app and Facebook.
+        // console.log(response.authResponse.accessToken);
+
+        onLogin(response);
+
+      } else if (response.status === 'not_authorized') {
+        // The person is logged into Facebook, but not your app.
+        console.log('The person is logged into Facebook, but not your app');
+      } else {
+        // The person is not logged into Facebook, so we're not sure if
+        // they are logged into this app or not.
+        console.log("The person is not logged into Facebook");
+      }
+    }
+    // This function is called when someone finishes with the Login
+    // Button.  See the onlogin handler attached to it in the sample
+    // code below.
+    function checkLoginState() {
+      FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+      });
+    }
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId: '938044843003709',
+        xfbml: true,
+        version: 'v2.12'
+      });
+      // FB.AppEvents.logPageView();
+    };
+
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) { return; }
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    // custom fb login button
+    function fb_login() {
+      // FB 第三方登入，要求公開資料與email
+      FB.login(function(response) {
+        statusChangeCallback(response);
+        console.log(response);
+      }, { scope: 'public_profile,email' });
+    }
+    function onLogin(response) {
+      var btnLoginByFB = document.querySelector('.btnLoginByFB'),
+        feedback = document.querySelector('.feedback');
+
+      btnLoginByFB.remove();
+      feedback.innerText = 'Facebook 登入成功.';
+      FB.api(
+        '/me',
+        'GET', { "fields": "id,name,email" },
+        function(response) {
+          // Insert your code here
+          console.log(response);
+        }
+      );
+    };
+  </script>
+  <h1>Facebook API串接測試 <span class="counter"></span></h1>
+  <!-- <h2>FB like</h2>
+  <div class="fb-like" data-share="true" data-width="450" data-show-faces="true">
+  </div>
+  <h2>FB share</h2>
+  <div class="fb-share-button" data-href="https://yisenliu.github.io/fb/index.htm" data-layout="button_count">
+  </div> -->
+  <h2>FB login</h2>
+  <a href="javascript:;" class="btnLoginByFB" onClick="fb_login()">使用Facebook登入</a>
+  <div class="feedback">
+    <!-- FB API反饋結果 -->
+  </div>
+  <script>
+    var counter = document.querySelector('.counter'),
+      sec = 0,
+      secInt;
+
+    secInt = setInterval(function() {
+      counter.innerText = sec++;
+    }, 300);
+  </script>
+</body>
+
+</html>
